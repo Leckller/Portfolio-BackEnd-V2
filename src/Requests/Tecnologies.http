@@ -1,0 +1,17 @@
+### GET TECNOLOGIES ###
+
+GET http://localhost:3000/tecnologies?language=true
+
+
+### ADD TECNOLOGY ###
+POST http://localhost:3000/tecnologies
+Content-Type: application/json
+
+{
+    "name": "typescript",
+    "img": "https://teste.com"
+}
+
+
+### EDIT TECNOLOGY ###
+PATCH http://localhost:3000/tecnologies/1111
