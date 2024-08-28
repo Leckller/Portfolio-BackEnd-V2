@@ -1,8 +1,11 @@
-import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { CreateTecnologyDTO } from './DTO/create-tecnology';
+import { TecnologiesService } from './tecnologies.service';
 
 @Controller('tecnologies')
 export class TecnologiesController {
+  constructor(private service: TecnologiesService) {}
+
   @Get()
   listTecnologies(@Query('language') language = false) {
     return language;
@@ -10,11 +13,13 @@ export class TecnologiesController {
 
   @Post()
   addTecnology(@Body() body: CreateTecnologyDTO) {
-    return body;
+    const { img, name } = body;
+    this.service.addTecnology({ img, name });
   }
 
-  @Patch('/:id')
-  editTecnology(@Param('id') id: number) {
+  @Delete('/:id')
+  removeTecnology(@Param('id') id: number) {
+    this.removeTecnology(id);
     return id;
   }
 }

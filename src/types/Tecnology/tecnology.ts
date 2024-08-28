@@ -1,5 +1,5 @@
 export default interface ITecnology {
-  id: number,
+  id?: number,
   name: string,
   img: string
 }
