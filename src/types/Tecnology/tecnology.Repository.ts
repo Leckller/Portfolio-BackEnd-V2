@@ -2,6 +2,6 @@ import ITecnology from './tecnology';
 
 export default interface ITecnologyRepository {
   getAll(): ITecnology[],
-  addTecnology(): void,
-  removeTecnology(): void,
+  addTecnology(tecnology: ITecnology): void,
+  removeTecnology(id: number): void,
 }

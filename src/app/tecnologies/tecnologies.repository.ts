@@ -3,7 +3,7 @@ import { ITecs } from '../../types';
 
 @Injectable()
 export class TecnologiesRepository implements ITecs.ITecnologyRepository {
-  addTecnology(): void {
+  addTecnology(tecnology: ITecs.ITecnology): void {
 
   }
 
@@ -11,7 +11,7 @@ export class TecnologiesRepository implements ITecs.ITecnologyRepository {
     return [];
   }
 
-  removeTecnology(): void {
+  removeTecnology(id: number): void {
 
   }
 }
