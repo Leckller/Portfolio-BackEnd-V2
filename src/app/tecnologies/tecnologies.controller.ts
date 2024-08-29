@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { ITecs } from '../../types';
 import { CreateTecnologyDTO } from './DTO/create-tecnology';
 import { TecnologiesService } from './tecnologies.service';
 
@@ -7,19 +8,23 @@ export class TecnologiesController {
   constructor(private service: TecnologiesService) {}
 
   @Get()
-  listTecnologies(@Query('language') language = false) {
-    return language;
+  async getAll(): Promise<ITecs.ITecnology[]> {
+    return this.service.getAll();
   }
 
   @Post()
-  addTecnology(@Body() body: CreateTecnologyDTO) {
-    const { img, name } = body;
-    this.service.addTecnology({ img, name });
+  async addTecnology(@Body() tecnology: CreateTecnologyDTO): Promise<ITecs.ITecnology> {
+    return this.service.addTecnology(tecnology);
   }
 
   @Delete('/:id')
-  removeTecnology(@Param('id') id: number) {
-    this.removeTecnology(id);
-    return id;
+  async removeTecnology(@Param() params: { id: number }): Promise<void> {
+    return this.service.removeTecnology(params.id);
+  }
+
+  @Patch('/:id')
+  async updateTecnology(@Param() params: { id: number }, @Body() tec: CreateTecnologyDTO)
+    : Promise<ITecs.ITecnology> {
+    return this.service.updateTecnology(params.id, tec);
   }
 }

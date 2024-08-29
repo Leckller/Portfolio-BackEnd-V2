@@ -1,4 +1,4 @@
 import ITecnology from './tecnology';
-import ITecnologyRepository from './tecnology.Repository';
+import ITecnologyService from './tecnology.Service';
 
-export { ITecnology, ITecnologyRepository };
+export { ITecnology, ITecnologyService };

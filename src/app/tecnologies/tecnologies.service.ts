@@ -1,22 +1,45 @@
-import { Injectable } from '@nestjs/common';
-import { ITecs } from 'src/types';
-import { TecnologiesRepository } from './tecnologies.repository';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Tecnology } from '../../Entities/Tecnology.entity';
+import { ITecs } from '../../types';
+
+const notFoundMessage = 'Tecnologia não encontrada';
 
 @Injectable()
-export class TecnologiesService implements ITecs.ITecnologyRepository {
-  // Pelo visto n da p fazer injeção de dependência com inversão de dependência
-  constructor(private repository: TecnologiesRepository) {}
+export class TecnologiesService implements ITecs.ITecnologyService {
+  constructor(@InjectRepository(Tecnology) private repo: Repository<Tecnology>) {}
 
-  addTecnology(tecnology: ITecs.ITecnology): void {
-    this.repository.addTecnology(tecnology);
-    console.log('add');
+  async updateTecnology(id: number, newTecnology: ITecs.ITecnology)
+    : Promise<ITecs.ITecnology> {
+    const tec = await this.repo.findOneBy({ id });
+    if (!tec) {
+      throw new NotFoundException(notFoundMessage);
+    }
+    Object.assign(tec, newTecnology);
+    return this.repo.save(tec);
   }
 
-  getAll(): ITecs.ITecnology[] {
-    return this.repository.getAll();
+  async addTecnology(tecnology: ITecs.ITecnology): Promise<ITecs.ITecnology> {
+    const tecExists = await this.repo.findOneBy({ name: tecnology.name });
+    if (tecExists) {
+      throw new BadRequestException('Já existe uma tecnologia com esse nome');
+    }
+    const tec = await this.repo.create(tecnology);
+    await this.repo.save(tec);
+    return tec;
   }
 
-  removeTecnology(id: number): void {
-    this.repository.removeTecnology(id);
+  async getAll(): Promise<ITecs.ITecnology[]> {
+    return this.repo.find();
+  }
+
+  async removeTecnology(id: number): Promise<void> {
+    const tecExists = await this.repo.findOneBy({ id });
+    if (!tecExists) {
+      throw new NotFoundException(notFoundMessage);
+    }
+    const tec = await this.repo.findOneBy({ id });
+    await this.repo.remove(tec);
   }
 }
