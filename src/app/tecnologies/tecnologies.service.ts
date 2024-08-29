@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ITecs } from 'src/types';
+import { ITecs } from '../../types';
 import { TecnologiesRepository } from './tecnologies.repository';
 
 @Injectable()

@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { AfterInsert, AfterRemove, AfterUpdate,
+  Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { IProjs } from '../types';
-import { ITecnology } from '../types/Tecnology';
+// import { ITecnology } from '../types/Tecnology';
 
 @Entity()
 export class Project implements Omit<IProjs.IProject, 'tecnologies'> {
@@ -21,4 +22,13 @@ export class Project implements Omit<IProjs.IProject, 'tecnologies'> {
 
   @Column()
     webLink: string;
+
+  @AfterInsert()
+  logInsert() { console.log(`Projeto ${this.title} adicionada`); }
+
+  @AfterUpdate()
+  logUpdate() { console.log(`Projeto ${this.title} atualizada`); }
+
+  @AfterRemove()
+  logRemove() { console.log(`Projeto ${this.title} removido`); }
 }
