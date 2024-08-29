@@ -1,0 +1,19 @@
+### GET TECNOLOGIES ###
+
+GET http://localhost:3000/projects
+
+
+### ADD TECNOLOGY ###
+POST http://localhost:3000/projects
+Content-Type: application/json
+
+{
+    "title": "ShopCo",
+    "description": "Projeto feito como desafio durante meu estágio na compasso uol",
+    "codeLink": "https://xxxx",
+    "webLink": "https://xxxx"
+}
+
+
+### EDIT TECNOLOGY ###
+DELETE  http://localhost:3000/projects/1

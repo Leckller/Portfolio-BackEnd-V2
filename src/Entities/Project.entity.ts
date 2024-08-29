@@ -1,10 +1,9 @@
 import { AfterInsert, AfterRemove, AfterUpdate,
   Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { IProjs } from '../types';
-// import { ITecnology } from '../types/Tecnology';
 
 @Entity()
-export class Project implements Omit<IProjs.IProject, 'tecnologies'> {
+export class Project implements IProjs.IProject {
   @PrimaryGeneratedColumn()
     id?: number;
 
@@ -13,9 +12,6 @@ export class Project implements Omit<IProjs.IProject, 'tecnologies'> {
 
   @Column()
     description: string;
-
-  // @Column()
-  //   tecnologies: ITecnology[];
 
   @Column()
     title: string;

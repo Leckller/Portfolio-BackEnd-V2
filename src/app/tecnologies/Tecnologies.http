@@ -8,10 +8,10 @@ POST http://localhost:3000/tecnologies
 Content-Type: application/json
 
 {
-    "name": "typescript",
+    "name": "javascript",
     "img": "https://teste.com"
 }
 
 
 ### EDIT TECNOLOGY ###
-PATCH http://localhost:3000/tecnologies/1111
+DELETE  http://localhost:3000/tecnologies/1

@@ -1,4 +1,4 @@
 import IProject from './Project';
-import IProjectRepository from './Project.Repository';
+import IProjectService from './Project.Service';
 
-export { IProject, IProjectRepository };
+export { IProject, IProjectService };

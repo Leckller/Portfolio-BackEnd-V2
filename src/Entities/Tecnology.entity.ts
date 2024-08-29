@@ -1,5 +1,6 @@
 import { AfterInsert, AfterRemove, AfterUpdate, Column,
-  Entity, PrimaryGeneratedColumn } from 'typeorm';
+  Entity, PrimaryGeneratedColumn,
+} from 'typeorm';
 import { ITecs } from '../types';
 
 @Entity()
